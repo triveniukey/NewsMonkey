@@ -11,13 +11,17 @@ const News = (props) => {
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
 
+  const apiKey = import.meta.env.VITE_NEWS_API;
+
+
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
   const updateNews = async () => {
     props.setProgress(10);
-    const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=b72ebb4c62e240cdac472412e431bad6&page=${page}&pageSize=${props.pageSize}`;
+   const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${apiKey}&page=${page}&pageSize=${props.pageSize}`;
+
     setLoading(true);
     let data = await fetch(url);
     props.setProgress(30);
