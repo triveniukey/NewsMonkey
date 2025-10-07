@@ -51,7 +51,7 @@ const News = (props) => {
 
   const fetchMoreData = async () => {
     setPage(page + 1);
-    const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=b72ebb4c62e240cdac472412e431bad6&page=${page + 1}&pageSize=${props.pageSize}`;
+    const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=e42c588f37e94f2daa36746cbdd4a0a2&page=${page + 1}&pageSize=${props.pageSize}`;
     let data = await fetch(url);
     let parsedData = await data.json();
     setArticles(articles.concat(parsedData.articles));
