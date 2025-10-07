@@ -20,15 +20,12 @@ const News = (props) => {
 
   const updateNews = async () => {
     props.setProgress(10);
-   const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${apiKey}&page=${page}&pageSize=${props.pageSize}`;
+   const url = `/api/news?page=${page}&country=${props.country}&category=${props.category}`;
+let data = await fetch(url);
+let parsedData = await data.json();
+setArticles(parsedData.articles || []);
+setTotalResults(parsedData.totalResults || 0);
 
-    setLoading(true);
-    let data = await fetch(url);
-    props.setProgress(30);
-    let parsedData = await data.json();
-    props.setProgress(70);
-    setArticles(parsedData.articles);
-    setTotalResults(parsedData.totalResults);
     setLoading(false);
     props.setProgress(100);
   };
@@ -65,11 +62,12 @@ const News = (props) => {
       </h1>
       {loading && <Spinner />}
       <InfiniteScroll
-        dataLength={articles.length}
-        next={fetchMoreData}
-        hasMore={articles.length !== totalResults}
-        loader={<Spinner />}
-      >
+  dataLength={articles ? articles.length : 0}   // ✅ safe check
+  next={fetchMoreData}
+  hasMore={articles && articles.length < totalResults} // ✅ safe check
+  loader={<Spinner />}
+/>
+
         <div className="container">
           <div className='row'>
             {
