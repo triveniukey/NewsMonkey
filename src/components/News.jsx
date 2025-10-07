@@ -62,12 +62,11 @@ setTotalResults(parsedData.totalResults || 0);
       </h1>
       {loading && <Spinner />}
       <InfiniteScroll
-  dataLength={articles ? articles.length : 0}   // ✅ safe check
+        dataLength={articles ? articles.length : 0}   // ✅ safe check
   next={fetchMoreData}
   hasMore={articles && articles.length < totalResults} // ✅ safe check
   loader={<Spinner />}
-/>
-
+      >
         <div className="container">
           <div className='row'>
             {
